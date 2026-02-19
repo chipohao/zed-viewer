@@ -122,7 +122,15 @@ python3 zed_motion_tracker.py --no-osc --no-syphon
 
 使用 OBS Virtual Camera，Max 可透過 `[jit.grab]` 直接收影像，不需要額外安裝 Syphon for Jitter（該 package 僅有 x86_64 binary，在 Apple Silicon 原生模式的 Max 9 無法載入）。
 
-前置準備：安裝 [OBS Studio](https://obsproject.com/)（提供虛擬相機驅動，不需要開啟 OBS）。
+前置準備（每台電腦首次需執行一次）：
+
+1. 安裝 [OBS Studio](https://obsproject.com/)
+2. 開啟 OBS → 點選 **Start Virtual Camera**（Controls 面板右下角，或 Tools 選單）
+3. macOS 會提示啟用 System Extension → 前往 **系統設定 > 一般 > 登入項目與延伸功能 > 相機延伸功能** → 啟用 OBS
+4. 回到 OBS 再次點選 Start Virtual Camera 確認生效
+5. 關閉 OBS（日後使用不需要開啟 OBS，只需要驅動已啟用）
+
+> **注意**：OBS 28+ 在 macOS 上使用 Camera Extension（非舊版 DAL plugin）。如果跳過上述步驟，虛擬相機不會出現在裝置列表中。
 
 ```
 [jit.grab @vdevice "OBS Virtual Camera" @output_texture 1]
@@ -222,4 +230,4 @@ python3 zed_motion_tracker.py --no-osc --no-syphon
 - 需要 `opencv-contrib-python`（不是 `opencv-python`），因為 WLS 濾波器在 `ximgproc` 模組中
 - 首次執行 MediaPipe 可能會較慢（需要載入模型）
 - `syphon-python` 為選用依賴，未安裝時程式仍可正常運作（Syphon 功能自動停用）
-- `pyvirtualcam` 需要先安裝 [OBS Studio](https://obsproject.com/) 提供虛擬相機驅動。未安裝時程式仍可正常運作（虛擬相機功能自動停用）
+- `pyvirtualcam` 需要 [OBS Studio](https://obsproject.com/) 提供虛擬相機驅動，且首次需在 OBS 內啟動 Virtual Camera 以觸發 macOS Camera Extension 安裝（詳見上方 Max/MSP 段落）。未安裝時程式仍可正常運作（虛擬相機功能自動停用）

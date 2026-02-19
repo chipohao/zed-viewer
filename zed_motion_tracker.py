@@ -565,6 +565,7 @@ def main():
                 vcam_frame = cv2.resize(vcam_frame, (1280, 720))
             vcam_frame = cv2.cvtColor(vcam_frame, cv2.COLOR_BGR2RGB)
             vcam.send(vcam_frame)
+            vcam.sleep_until_next_frame()
 
         # ── FPS measurement ──
         frame_count += 1
